@@ -1469,6 +1469,10 @@
                             -->
                             <input type="hidden" name="No of Short Form Videos" id="final-short-count">
                             <input type="hidden" name="No of Long Form Videos" id="final-long-count">
+                            
+                            <!-- NEW: Hidden Fields for Tier and Estimated Price -->
+                            <input type="hidden" name="Selected Tier" id="form-tier-hidden">
+                            <input type="hidden" name="Estimated Price" id="form-price-hidden">
                         
                             <div class="form-group">
                                 <label for="name">Full Name</label>
@@ -1480,7 +1484,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="package-select">Choose Package</label>
-                                <select id="package-select" name="package" class="form-control" onchange="toggleContactCustomFields()">
+                                <select id="package-select" name="package" class="form-control" onchange="calculateContactFormPrice()">
                                     <option value="Starter">Starter (₹30,000/mo)</option>
                                     <option value="Growth">Growth (₹60,000/mo)</option>
                                     <option value="Pro Scale">Pro Scale (₹1,00,000/mo)</option>
@@ -1501,6 +1505,21 @@
                                 <div class="form-group">
                                     <label for="contact-long">Number of Long Form Videos</label>
                                     <input type="number" id="contact-long" class="form-control" placeholder="Min 2" min="2">
+                                </div>
+                                
+                                <!-- NEW: Tier Selector in Contact Form -->
+                                <div class="form-group">
+                                    <label for="contact-tier">Select Tier</label>
+                                    <select id="contact-tier" class="form-control" onchange="calculateContactFormPrice()">
+                                        <option value="1">Tier 1: Standard (Included)</option>
+                                        <option value="2">Tier 2: Engagement (+15%)</option>
+                                        <option value="3">Tier 3: High-Motion (+30%)</option>
+                                    </select>
+                                </div>
+                                
+                                <!-- Visible Estimated Price Display -->
+                                <div style="margin-bottom: 20px; text-align: right; color: var(--brand-primary); font-weight: bold; font-size: 1.1rem;">
+                                    Estimated Price: <span id="contact-price-display">₹30,000</span>
                                 </div>
                             </div>
 
@@ -1909,7 +1928,8 @@
             // --- END VALIDATION LOGIC ---
 
             // Sync hidden inputs one last time before send
-            updateHiddenVideoCounts();
+            // Ensure calculation is fresh
+            calculateContactFormPrice(); 
 
             // UI Feedback state
             const originalText = button.innerText;
@@ -1947,8 +1967,8 @@
                     form.reset(); 
                     document.getElementById('contact-custom-fields').classList.add('hidden');
                     
-                    // Reset hidden counts to Starter default
-                    updateHiddenVideoCounts();
+                    // Reset hidden counts/prices to Starter default
+                    calculateContactFormPrice();
 
                     button.innerText = "Sent Successfully";
                     setTimeout(() => {
@@ -1974,51 +1994,99 @@
             }
         });
 
-        // --- NEW: Function to sync video counts to hidden fields ---
-        function updateHiddenVideoCounts() {
+        // --- NEW: Calculate Price Function for CONTACT FORM ---
+        function calculateContactFormPrice() {
             const select = document.getElementById('package-select');
+            
+            // Input Elements
+            const customShortInput = document.getElementById('contact-short');
+            const customLongInput = document.getElementById('contact-long');
+            const tierSelect = document.getElementById('contact-tier');
+            
+            // Hidden Output Fields
             const shortHidden = document.getElementById('final-short-count');
             const longHidden = document.getElementById('final-long-count');
-            
-            const customShort = document.getElementById('contact-short');
-            const customLong = document.getElementById('contact-long');
+            const tierHidden = document.getElementById('form-tier-hidden');
+            const priceHidden = document.getElementById('form-price-hidden');
+            const displaySpan = document.getElementById('contact-price-display');
 
-            if (select.value === 'Starter') {
-                shortHidden.value = "5";
-                longHidden.value = "2";
-            } else if (select.value === 'Growth') {
-                shortHidden.value = "12";
-                longHidden.value = "4";
-            } else if (select.value === 'Pro Scale') {
-                shortHidden.value = "20";
-                longHidden.value = "5";
-            } else if (select.value === 'Enterprise') {
-                shortHidden.value = customShort.value || "Not specified";
-                longHidden.value = customLong.value || "Not specified";
-            }
-        }
+            // Custom Field Container
+            const customFields = document.getElementById('contact-custom-fields');
 
-        // Contact Custom Fields Toggle (Modified)
-        function toggleContactCustomFields() {
-            const select = document.getElementById('package-select');
-            const fields = document.getElementById('contact-custom-fields');
+            let shortCount = "0";
+            let longCount = "0";
+            let estimatedPrice = 0;
+            let tierName = "Standard Package (Included)";
+
+            // Show/Hide Logic
             if (select.value === 'Enterprise') {
-                fields.classList.remove('hidden');
+                customFields.classList.remove('hidden');
             } else {
-                fields.classList.add('hidden');
+                customFields.classList.add('hidden');
             }
-            updateHiddenVideoCounts();
+
+            // Calculation Logic
+            if (select.value === 'Starter') {
+                shortCount = "5";
+                longCount = "2";
+                estimatedPrice = 30000;
+                tierName = "Standard Package";
+            } else if (select.value === 'Growth') {
+                shortCount = "12";
+                longCount = "4";
+                estimatedPrice = 60000;
+                tierName = "Standard Package";
+            } else if (select.value === 'Pro Scale') {
+                shortCount = "20";
+                longCount = "5";
+                estimatedPrice = 100000;
+                tierName = "Standard Package";
+            } else if (select.value === 'Enterprise') {
+                // Get values from custom inputs
+                let s = parseInt(customShortInput.value) || 0;
+                let l = parseInt(customLongInput.value) || 0;
+                let t = parseInt(tierSelect.value);
+
+                shortCount = s.toString();
+                longCount = l.toString();
+
+                // Base Calc: (Short * 3000) + (Long * 6000)
+                let basePrice = (s * 3000) + (l * 6000);
+                
+                // Tier Multiplier
+                let multiplier = 1;
+                if (t === 2) multiplier = 1.15;
+                if (t === 3) multiplier = 1.30;
+
+                estimatedPrice = basePrice * multiplier;
+
+                // Set Tier Name text
+                if (t === 1) tierName = "Tier 1: Standard";
+                if (t === 2) tierName = "Tier 2: Engagement";
+                if (t === 3) tierName = "Tier 3: High-Motion";
+            }
+
+            // Update Hidden Inputs
+            shortHidden.value = shortCount;
+            longHidden.value = longCount;
+            priceHidden.value = "₹" + Math.floor(estimatedPrice).toLocaleString('en-IN');
+            tierHidden.value = tierName;
+
+            // Update Visible Display (if element exists)
+            if (displaySpan) {
+                displaySpan.innerText = "₹" + Math.floor(estimatedPrice).toLocaleString('en-IN');
+            }
         }
 
         // Add listeners for custom inputs to update hidden fields in real-time
         document.addEventListener('DOMContentLoaded', () => {
              const shortInput = document.getElementById('contact-short');
              const longInput = document.getElementById('contact-long');
-             if (shortInput) shortInput.addEventListener('input', updateHiddenVideoCounts);
-             if (longInput) longInput.addEventListener('input', updateHiddenVideoCounts);
+             if (shortInput) shortInput.addEventListener('input', calculateContactFormPrice);
+             if (longInput) longInput.addEventListener('input', calculateContactFormPrice);
              
              // Initialize hidden fields with default values (Starter)
-             updateHiddenVideoCounts();
+             calculateContactFormPrice();
         });
 
 
