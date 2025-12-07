@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-H758PRDFGR"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-H758PRDFGR"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
 
-  gtag('config', 'G-H758PRDFGR');
-</script>
+      gtag('config', 'G-H758PRDFGR');
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NOVEXY | Premium Video Systems</title>
@@ -18,6 +18,9 @@
     
     <!-- CALENDLY CSS (Required for the popup) -->
     <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+    
+    <!-- FONT AWESOME (For Social Icons) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
         /* --- CSS VARIABLES & RESET --- */
@@ -160,7 +163,11 @@
             border: none;
             display: inline-block;
             text-align: center;
-            
+            border-radius: 0; /* REMOVED BORDER RADIUS */
+        }
+
+        button {
+            border-radius: 0 !important; /* GLOBAL BUTTON OVERRIDE */
         }
 
         .btn-primary {
@@ -280,7 +287,7 @@
             background-color: rgba(255, 255, 255, 0.03);
             border: 1px solid var(--border-color);
             padding: 30px;
-            border-radius: 4px;
+            border-radius: 4px; /* Optional: Keep sharp or minimal radius for cards */
             transition: transform 0.3s ease, border-color 0.3s ease;
         }
 
@@ -364,11 +371,16 @@
             background-color: var(--bg-card);
             border: 1px solid var(--border-color);
             padding: 40px;
-            transition: border-color 0.3s ease;
+            /* Updated transition to match social icons */
+            transition: all 0.3s ease;
+            cursor: pointer; /* Indicates interactivity */
         }
 
         .service-card:hover {
-            border-color: rgba(255, 59, 48, 0.5);
+            /* The exact animation from social icons */
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(255, 59, 48, 0.3);
+            border-color: var(--brand-primary);
         }
 
         .service-icon {
@@ -440,6 +452,77 @@
             font-size: 0.9rem;
         }
 
+        /* --- TEAM SECTION (NEW) --- */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* Force 2 columns */
+            gap: 60px;
+            margin-top: 40px;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .team-card {
+            background-color: transparent; /* Removed card background for cleaner look */
+            border: none;
+            overflow: visible;
+            text-align: center; /* Center align everything */
+            padding: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .team-card:hover {
+            transform: translateY(-10px);
+            /* border-color removed since no border */
+        }
+
+        .team-img-wrapper {
+            width: 250px;
+            height: 250px;
+            border-radius: 50%; /* MAKES IT A CIRCLE */
+            overflow: hidden;
+            background-color: #222;
+            margin: 0 auto 30px auto; /* Centers the circle */
+            border: 4px solid var(--bg-card); /* Inner spacing */
+            outline: 2px solid var(--brand-primary); /* Outer ring color */
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .team-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .team-card:hover .team-img-wrapper img {
+            transform: scale(1.1);
+        }
+
+        .team-info {
+            padding: 0;
+            text-align: center;
+        }
+
+        .team-role {
+            color: var(--brand-primary);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 700;
+            display: block;
+            margin-bottom: 15px;
+        }
+
+        .team-info p {
+            color: var(--text-gray);
+            font-size: 0.95rem;
+            margin-top: 15px;
+            line-height: 1.6;
+        }
+
+
         /* --- PRICING PAGE --- */
         .pricing-grid {
             display: grid;
@@ -457,6 +540,7 @@
             flex-direction: column;
             position: relative;
             transition: transform 0.3s ease;
+            cursor: pointer; /* Pointer to indicate clickable */
         }
         
         .pricing-card:hover {
@@ -488,7 +572,7 @@
         }
 
         .price {
-            font-size: 2rem;
+            font-size: 1.8rem;
             font-weight: 800;
             margin-bottom: 20px;
             color: var(--text-white);
@@ -554,12 +638,147 @@
             color: white;
             font-family: inherit;
             font-size: 0.95rem;
+            border-radius: 0; /* REMOVED BORDER RADIUS */
         }
 
         .form-control:focus {
             outline: none;
             border-color: var(--brand-primary);
         }
+
+        /* Error/Success Message Styles */
+        .form-message {
+            margin-top: 15px;
+            margin-bottom: 15px; /* Added spacing */
+            padding: 10px;
+            border-radius: 0; /* REMOVED BORDER RADIUS */
+            font-size: 0.9rem;
+            display: none;
+        }
+        .form-message.success {
+            /* display: block; -- Handled by JS */
+            background-color: rgba(40, 167, 69, 0.2);
+            border: 1px solid #28a745;
+            color: #28a745;
+        }
+        .form-message.error {
+            /* display: block; -- Handled by JS */
+            background-color: rgba(220, 53, 69, 0.2);
+            border: 1px solid #dc3545;
+            color: #dc3545;
+        }
+
+
+        /* --- FAQ SECTION --- */
+        /* Added Tabs Styling */
+        .faq-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .faq-tab {
+            background: transparent;
+            border: none;
+            border-bottom: 2px solid transparent; /* Subtle underline indicator optional */
+            color: var(--text-gray);
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+            font-family: inherit;
+            font-weight: 700; /* Bold Tabs */
+            border-radius: 0; /* REMOVED BORDER RADIUS */
+        }
+        
+        .faq-tab.active, .faq-tab:hover {
+            color: var(--brand-primary); /* Orange text for active/hover */
+        }
+
+        /* Container for the Grid */
+        .faq-grid {
+            display: block; /* Ensure full width behavior */
+            width: 100%;
+            max-width: 900px; /* Max width to keep it readable but wide */
+            margin: 0 auto;
+        }
+
+        .faq-category {
+            animation: fadeIn 0.5s ease;
+            display: none; /* Hide by default */
+        }
+        
+        /* Only show the category that has the .active class */
+        .faq-category.active-category {
+            display: block;
+        }
+
+        .faq-category.hidden {
+            display: none;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .faq-category h3 {
+            display: none; /* Hide the sub-header since the tab tells us where we are */
+        }
+
+        .faq-item {
+            margin-bottom: 20px; 
+            cursor: pointer;
+            border-bottom: 1px solid #222; /* Minimal horizontal line separator */
+            padding: 20px 0;
+            transition: all 0.3s ease;
+        }
+        
+        .faq-item:hover {
+            /* No background change, just text highlight maybe */
+            border-color: #444;
+        }
+
+        .faq-question {
+            font-weight: 400; /* PLAIN TEXT (Not Bold) */
+            font-size: 1.2rem;
+            color: var(--text-white);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .faq-question::after {
+            content: '+';
+            font-size: 1.5rem;
+            color: var(--brand-primary);
+            transition: transform 0.3s ease;
+        }
+        
+        .faq-item:hover .faq-question::after {
+            transform: rotate(45deg); /* Optional interaction hint */
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, opacity 0.4s ease, margin-top 0.3s ease;
+            opacity: 0;
+            color: var(--text-gray);
+            font-size: 1.1rem; 
+            line-height: 1.6;
+            font-weight: 400; /* PLAIN TEXT */
+        }
+
+        /* Hover Effect for FAQ */
+        .faq-item:hover .faq-answer {
+            max-height: 500px;
+            opacity: 1;
+            margin-top: 15px;
+        }
+
 
         /* --- RESPONSIVE MEDIA QUERIES --- */
         
@@ -569,7 +788,6 @@
             .process-layout, .contact-layout { grid-template-columns: 1fr; }
             .process-steps { margin-left: 10px; }
             .pricing-grid { grid-template-columns: repeat(2, 1fr); }
-            /* Removed the rule hiding the CTA button here */
             .nav-actions .mobile-toggle { display: block; }
         }
 
@@ -577,16 +795,20 @@
         @media (max-width: 768px) {
             .nav-links { display: none; }
             .mobile-toggle { display: block; }
-            /* Removed the rule ensuring CTA is hidden here too */
             
             .testimonial-grid { grid-template-columns: 1fr; }
+            .team-grid { grid-template-columns: 1fr; max-width: 400px; gap: 50px; } /* Stack on mobile */
+            .team-img-wrapper { width: 200px; height: 200px; } /* Smaller circles on phone */
             
             /* Mobile Menu Overlay */
             .mobile-menu {
                 position: fixed;
-                top: 0; left: 0; right: 0; bottom: 0;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
                 background-color: var(--bg-body);
-                z-index: 999;
+                z-index: 2001; /* Ensure it's above everything including modals */
                 display: flex;
                 flex-direction: column;
                 padding-top: 100px;
@@ -597,49 +819,377 @@
                 margin-bottom: 20px;
                 color: var(--text-white);
             }
-        }
-
-        /* Small Mobile Devices (Max Width 640px) */
-        @media (max-width: 640px) {
-            .section-padding { padding: 60px 0; }
             
-            /* Hero adjustments */
-            .hero h1 { font-size: 2.5rem; }
-            .hero p { font-size: 1rem; }
-            .hero-buttons .btn { width: 100%; margin-bottom: 10px; }
-            
-            /* Clients */
-            .client-grid { gap: 15px; }
-            .client-logo { font-size: 1.1rem; }
-
-            /* Services */
-            .service-card { padding: 25px; }
-            .services-grid { grid-template-columns: 1fr; }
-
-            /* Pricing */
-            .pricing-grid { grid-template-columns: 1fr; }
-            .pricing-card { padding: 25px; }
-
-            /* Contact */
-            .form-box { padding: 25px; }
-            .contact-layout h2 { font-size: 2.2rem; }
-
-            /* Footer */
-            .footer-content { 
-                flex-direction: column; 
-                gap: 20px; 
-                text-align: center;
-            }
-            .footer-links { 
-                flex-direction: column; 
-                gap: 10px; 
-            }
+            .faq-tabs { flex-direction: column; align-items: center; }
         }
         .dribble
         {
             width: 200px;
             height: 25px;
         }
+        .My_Photo
+        {
+            height: 100px;
+            width: 100px;
+        }
+        .dribble-1
+        {
+            height: 20px;
+            
+        }
+
+        /* --- NEW: PRICING MODAL STYLES --- */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.85); /* Dark overlay */
+            backdrop-filter: blur(8px);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .modal-content {
+            background-color: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            /* UPDATED WIDTH */
+            width: 95%;
+            max-width: 1200px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+            position: relative; /* For close button absolute positioning */
+        }
+
+        .modal.active .modal-content {
+            transform: scale(1);
+        }
+
+        /* CLOSE BUTTON STYLE */
+        .close-modal-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: var(--text-gray);
+            font-size: 2rem;
+            cursor: pointer;
+            z-index: 10;
+            line-height: 1;
+            transition: color 0.3s ease;
+        }
+        .close-modal-btn:hover {
+            color: var(--brand-primary);
+        }
+
+        /* Left Side of Modal */
+        .modal-left {
+            padding: 40px;
+            background-color: #1a1a1a;
+            border-right: 1px solid #333;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .modal-header h2 {
+            font-size: 1.8rem;
+            margin-bottom: 5px;
+        }
+        .modal-header p {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+        }
+        
+        .modal-price {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--text-white);
+        }
+
+        .modal-section-title {
+            color: var(--text-gray);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .interactive-row {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background-color: rgba(255,255,255,0.05);
+            padding: 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            border: 1px solid transparent;
+            transition: all 0.2s ease;
+            margin-bottom: 10px;
+        }
+
+        .interactive-row:hover {
+            background-color: rgba(255, 59, 48, 0.1);
+            border-color: var(--brand-primary);
+        }
+
+        .icon-box {
+            width: 40px;
+            height: 40px;
+            background-color: var(--brand-primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            font-size: 1.2rem;
+        }
+
+        .row-text {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        /* Video Breakdown Bar */
+        .video-bar-container {
+            margin-top: 10px;
+        }
+        .video-bar {
+            display: flex;
+            height: 8px;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 5px;
+        }
+        .bar-long {
+            background-color: var(--brand-primary);
+        }
+        .bar-short {
+            background-color: #ffffff;
+        }
+        .bar-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: var(--text-gray);
+        }
+
+        /* Right Side of Modal */
+        .modal-right {
+            padding: 40px;
+            background-color: #1a1a1a; /* Slightly darker */
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start; /* Changed: Items start at top */
+            position: relative;
+        }
+
+        /* Dynamic Info Panel (Now Static Positioned) */
+        /* ANIMATION CHANGE: Uses max-height for smooth slide instead of display:block */
+        .info-panel {
+            background-color: rgba(255, 59, 48, 0.1);
+            border: 1px solid var(--brand-primary);
+            border-radius: 6px;
+            
+            /* Hidden State */
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            margin-bottom: 0;
+            padding: 0 20px; /* Padding on sides only initially */
+            
+            /* SLOW TRANSITION ADDED HERE (0.6s) */
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .info-panel.visible {
+            /* Visible State */
+            max-height: 400px; /* Arbitrary large height */
+            opacity: 1;
+            margin-bottom: 20px;
+            padding: 20px; /* Restore padding */
+            border-width: 1px; /* Restore border */
+        }
+
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+        .info-table th {
+            text-align: left;
+            color: var(--brand-primary);
+            padding-bottom: 8px;
+            border-bottom: 1px solid #333;
+        }
+        .info-table td {
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            color: #ccc;
+        }
+
+        /* Tier Selection Section */
+        .tier-section {
+            background-color: #1a1a1a;
+            padding: 20px;
+            border-radius: 6px;
+            border: 1px solid #333;
+            /* Removed margin-top transition since we are pushing it down with info-panel */
+        }
+
+        .tier-select {
+            width: 100%;
+            background-color: #222;
+            color: white;
+            padding: 12px;
+            border: 1px solid #444;
+            border-radius: 0; /* REMOVED BORDER RADIUS */
+            font-size: 1rem;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+
+        .tier-description {
+            font-size: 0.85rem;
+            color: var(--text-gray);
+            line-height: 1.5;
+            margin-bottom: 20px;
+            /* Removed fixed min-height to allow list to grow */
+            min-height: auto; 
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .btn-modal-action {
+            flex: 1;
+            padding: 15px;
+            text-align: center;
+            font-weight: 700;
+            border-radius: 0; /* REMOVED BORDER RADIUS */
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s;
+        }
+        
+        .btn-ok {
+            background-color: var(--brand-primary);
+            color: white;
+            width: 100%; /* Full Width */
+        }
+        .btn-ok:hover {
+            background-color: var(--brand-primary-hover);
+        }
+
+        /* --- CUSTOM CONFIGURATOR STYLES --- */
+        .custom-config-section {
+            background-color: #222;
+            border: 1px solid #444;
+            padding: 20px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            animation: fadeIn 0.4s ease;
+        }
+        .custom-input-group {
+            margin-bottom: 15px;
+        }
+        .custom-input-group label {
+            display: block;
+            font-size: 0.9rem;
+            color: var(--text-gray);
+            margin-bottom: 5px;
+        }
+        .custom-input {
+            width: 100%;
+            background-color: #111;
+            border: 1px solid #555;
+            color: white;
+            padding: 10px;
+            border-radius: 0; /* REMOVED BORDER RADIUS */
+            font-size: 1rem;
+        }
+        .custom-input:focus {
+            outline: none;
+            border-color: var(--brand-primary);
+        }
+        .input-price-hint {
+            font-size: 0.8rem;
+            color: var(--brand-primary);
+            margin-top: 2px;
+            display: block;
+            text-align: right;
+        }
+
+        /* SOCIAL ICONS STYLING */
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 50px; /* INCREASED GAP */
+            margin: 30px 0;
+        }
+        
+        /* Changed from <a> to <div> to hide status bar URL */
+        .social-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background-color: rgba(255,255,255,0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-white);
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+            cursor: pointer; /* Added pointer cursor */
+        }
+        
+        .social-icon:hover {
+            background-color: var(--brand-primary);
+            color: white;
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(255, 59, 48, 0.3);
+        }
+
+        /* Mobile Modal */
+        @media (max-width: 768px) {
+            .modal-content {
+                grid-template-columns: 1fr;
+                height: 90vh; /* Fixed height with scroll */
+                overflow-y: auto;
+            }
+            .modal-left { border-right: none; border-bottom: 1px solid #333; }
+            .modal-right {
+                justify-content: flex-start; /* Keep behavior consistent */
+            }
+            .close-modal-btn {
+                top: 10px;
+                right: 15px;
+                color: white; /* Make sure it's visible on dark bg */
+            }
+        }
+
     </style>
 </head>
 <body>
@@ -650,13 +1200,14 @@
             <!-- <a href="#page-home" class="logo">
                 NOVEXY <span class="text-brand">Studios</span>
             </a> -->
-            <img src="Dribbble shot - 1.png" class="dribble">
+            <img src="Dribbble shot - 1.png" class="dribble" alt="Novexy Logo">
             
             <div class="nav-links">
                 <a href="#page-home" class="nav-link active">Home</a>
                 <a href="#page-services" class="nav-link">Services</a>
                 <a href="#page-pricing" class="nav-link">Pricing</a>
                 <a href="#page-contact" class="nav-link">Contact</a>
+                <a href="#page-faq" class="nav-link">FAQ</a>
             </div>
 
             <div class="nav-actions">
@@ -669,11 +1220,13 @@
 
     <!-- Mobile Menu Overlay (Hidden by default) -->
     <div id="mobile-menu" class="mobile-menu hidden">
+        <button onclick="toggleMobileMenu()" style="align-self: flex-end; margin-bottom: 30px; background:none; border:none; color:white; font-size: 2rem; cursor:pointer;">&times;</button>
         <a href="#page-home" onclick="toggleMobileMenu()">Home</a>
         <a href="#page-services" onclick="toggleMobileMenu()">Services</a>
         <a href="#page-pricing" onclick="toggleMobileMenu()">Pricing</a>
         <a href="#page-contact" onclick="toggleMobileMenu()">Contact</a>
-        <button onclick="toggleMobileMenu()" style="position:absolute; top: 30px; right: 30px; background:none; border:none; color:white; font-size: 2rem;">&times;</button>
+        <a href="#page-team" onclick="toggleMobileMenu()">Team</a>
+        <a href="#page-faq" onclick="toggleMobileMenu()">FAQ</a>
     </div>
 
     <!-- MAIN CONTENT AREA -->
@@ -802,7 +1355,7 @@
             </div>
         </section>
 
-        <!-- PAGE 3: PRICING (Updated 4 Cards) -->
+        <!-- PAGE 3: PRICING (Updated 4 Cards based on PDF) -->
         <section id="page-pricing" class="page-content">
             <div class="container section-padding">
                 <div class="section-header text-center">
@@ -812,69 +1365,69 @@
                 </div>
 
                 <div class="pricing-grid">
-                    <!-- Card 1: Basic Plan -->
-                    <div class="pricing-card">
+                    <!-- Card 1: Starter (The "Small Popcorn") -->
+                    <div class="pricing-card" onclick="openPricingModal('starter')">
                         <div class="price-header">
-                            <h3>Basic</h3>
-                            <p style="color: var(--text-gray); font-size: 0.8rem;">Project Starter</p>
+                            <h3>Starter</h3>
+                            <p style="color: var(--text-gray); font-size: 0.8rem;">The "Small Popcorn"</p>
                         </div>
-                        <div class="price">$5k+ <span>/ project</span></div>
+                        <div class="price">₹30,000 <span>/ month</span></div>
                         <ul class="feature-list">
-                            <li>Custom Strategy Session</li>
-                            <li>Full Production Crew</li>
-                            <li>2 Rounds of Revisions</li>
-                            <li>Raw Footage Delivery</li>
+                            <li>5 Short Form Videos</li>
+                            <li>2 Long Form Videos (1-10 min)</li>
+                            <li>2 Revisions per video</li>
+                            <li>SMM with 20% extra</li>
                         </ul>
-                        <a href="#page-contact" class="btn btn-outline" style="width:100%; display:block; text-align:center; text-decoration:none;">Inquire</a>
+                        <button class="btn btn-outline" style="width:100%;">Inquire</button>
                     </div>
 
-                    <!-- Card 2: Most Popular (Retainer) -->
-                    <div class="pricing-card featured">
-                        <div class="badge">Most Popular</div>
+                    <!-- Card 2: Growth (The "Medium Popcorn") -->
+                    <div class="pricing-card" onclick="openPricingModal('growth')">
                         <div class="price-header">
                             <h3>Growth</h3>
-                            <p style="color: var(--text-gray); font-size: 0.8rem;">Consistent Content</p>
+                            <p style="color: var(--text-gray); font-size: 0.8rem;">The "Medium Popcorn"</p>
                         </div>
-                        <div class="price">$8k <span>/ month</span></div>
+                        <div class="price">₹60,000 <span>/ month</span></div>
                         <ul class="feature-list">
-                            <li>4 Short-Form Videos</li>
-                            <li>1 Long-Form/Brand Video</li>
-                            <li>Monthly Strategy Audit</li>
-                            <li>Dedicated Manager</li>
+                            <li>12 Short Form Videos</li>
+                            <li>4 Long Form Videos</li>
+                            <li>Unlimited Revisions</li>
+                            <li>SMM with 20% extra</li>
                         </ul>
-                        <a href="#page-contact" class="btn btn-primary" style="width:100%; display:block; text-align:center; text-decoration:none;">Start Now</a>
+                        <button class="btn btn-outline" style="width:100%;">Inquire</button>
                     </div>
 
-                    <!-- Card 3: Pro Scale (New) -->
-                    <div class="pricing-card">
+                    <!-- Card 3: Pro Scale (The "Large Popcorn" - BEST SELLER) -->
+                    <div class="pricing-card featured" onclick="openPricingModal('pro')">
+                        <div class="badge">Most Popular</div>
                         <div class="price-header">
                             <h3>Pro Scale</h3>
-                            <p style="color: var(--text-gray); font-size: 0.8rem;">Aggressive Growth</p>
+                            <p style="color: var(--text-gray); font-size: 0.8rem;">The "Large Popcorn"</p>
                         </div>
-                        <div class="price">$15k <span>/ month</span></div>
+                        <div class="price">₹1,00,000 <span>/ month</span></div>
                         <ul class="feature-list">
-                            <li>10 Short-Form Videos</li>
-                            <li>2 Long-Form Videos</li>
-                            <li>A/B Testing Hooks</li>
-                            <li>Bi-Weekly Calls</li>
+                            <li>20 Short Form Videos (High Quality)</li>
+                            <li>5 Long Form Videos (High Quality)</li>
+                            <li>Unlimited Revisions</li>
+                            <li>SMM with 20% extra</li>
                         </ul>
-                        <a href="#page-contact" class="btn btn-outline" style="width:100%; display:block; text-align:center; text-decoration:none;">Upgrade</a>
+                        <button class="btn btn-primary" style="width:100%;">Start Now</button>
                     </div>
 
-                    <!-- Card 4: Custom (Enterprise) -->
-                    <div class="pricing-card">
+                    <!-- Card 4: Enterprise (Custom) -->
+                    <div class="pricing-card" onclick="openPricingModal('enterprise')">
                         <div class="price-header">
                             <h3>Enterprise</h3>
-                            <p style="color: var(--text-gray); font-size: 0.8rem;">Full Media Dept</p>
+                            <p style="color: var(--text-gray); font-size: 0.8rem;">Custom Scale</p>
                         </div>
                         <div class="price">Custom</div>
                         <ul class="feature-list">
-                            <li>Unlimited Requests</li>
-                            <li>On-Site Videography</li>
-                            <li>Full Funnel Architecture</li>
+                            <li>Select Short Videos (Min 6)</li>
+                            <li>Select Long Videos (Min 2)</li>
+                            <li>SMM with 20% extra</li>
                             <li>White Glove Service</li>
                         </ul>
-                        <a href="#page-contact" class="btn btn-outline" style="width:100%; display:block; text-align:center; text-decoration:none;">Contact Sales</a>
+                        <button class="btn btn-outline" style="width:100%;">Contact Sales</button>
                     </div>
                 </div>
             </div>
@@ -899,16 +1452,20 @@
                     </div>
 
                     <div class="form-box">
-                        <!-- 
-                            UPDATED: Contact Form using FormSubmit
-                            1. Replace 'INSERT_YOUR_EMAIL_HERE' with your actual email address.
-                            2. Once you do this, emails sent from this form will go directly to your inbox.
-                            3. The first time you use it, check your email to confirm the subscription.
-                        -->
-                        <form action="https://formsubmit.co/novexystudios@gmail.com" method="POST">
-                            <!-- Disable Captcha for smoother experience -->
+                        <form action="https://formsubmit.co/novexystudios@gmail.com" method="POST" id="contact-form">
+                            <!-- Hidden Fields for Better Email Formatting -->
                             <input type="hidden" name="_captcha" value="false">
+                            <input type="hidden" name="_template" value="table">
+                            <input type="hidden" name="_subject" value="New Client Inquiry - Novexy Studios">
                             
+                            <!-- 
+                                UPDATED: Renamed hidden fields to be user-friendly ("No of...")
+                                These fields are ALWAYS sent, regardless of package selected.
+                                JS fills them with the correct number.
+                            -->
+                            <input type="hidden" name="No of Short Form Videos" id="final-short-count">
+                            <input type="hidden" name="No of Long Form Videos" id="final-long-count">
+                        
                             <div class="form-group">
                                 <label for="name">Full Name</label>
                                 <input type="text" id="name" name="name" class="form-control" placeholder="John Doe" required>
@@ -918,19 +1475,211 @@
                                 <input type="email" id="email" name="email" class="form-control" placeholder="name@company.com" required>
                             </div>
                             <div class="form-group">
-                                <label for="budget">Project Budget</label>
-                                <select id="budget" name="budget" class="form-control">
-                                    <option>Under $5k</option>
-                                    <option>$5k - $15k</option>
-                                    <option>$15k+</option>
+                                <label for="package-select">Choose Package</label>
+                                <select id="package-select" name="package" class="form-control" onchange="toggleContactCustomFields()">
+                                    <option value="Starter">Starter (₹30,000/mo)</option>
+                                    <option value="Growth">Growth (₹60,000/mo)</option>
+                                    <option value="Pro Scale">Pro Scale (₹1,00,000/mo)</option>
+                                    <option value="Enterprise">Enterprise (Custom)</option>
                                 </select>
                             </div>
+
+                            <!-- 
+                                UPDATED: Removed 'name' attribute from these inputs.
+                                This prevents them from showing up as empty "custom_short_videos" rows in your email.
+                                The values are copied to the hidden fields above by JS.
+                            -->
+                            <div id="contact-custom-fields" class="hidden">
+                                <div class="form-group">
+                                    <label for="contact-short">Number of Short Form Videos</label>
+                                    <input type="number" id="contact-short" class="form-control" placeholder="Min 6" min="6">
+                                </div>
+                                <div class="form-group">
+                                    <label for="contact-long">Number of Long Form Videos</label>
+                                    <input type="number" id="contact-long" class="form-control" placeholder="Min 2" min="2">
+                                </div>
+                            </div>
+
                             <div class="form-group">
                                 <label for="message">Details</label>
                                 <textarea id="message" name="message" rows="4" class="form-control" placeholder="Tell us about your goals..."></textarea>
                             </div>
-                            <button type="submit" class="btn btn-primary" style="width: 100%;">Send Inquiry</button>
+                            
+                            <!-- ADDED: Success and Error Messages for JS to target -->
+                            <div id="form-success" class="form-message success">Thank you! Your message has been sent successfully.</div>
+                            <div id="form-error" class="form-message error">Something went wrong. Please try again later.</div>
+
+                            <button type="submit" id="submit-btn" class="btn btn-primary" style="width: 100%;">Send Inquiry</button>
                         </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ SECTION (UPDATED) -->
+        <section id="page-faq" class="page-content" style="background-color: #080808; border-top: 1px solid #111;">
+            <div class="container section-padding">
+                <div class="section-header text-center">
+                    <h2>Frequently Asked Questions</h2>
+                    <div class="divider" style="margin: 20px auto;"></div>
+                    <p style="color: var(--text-gray); max-width: 600px; margin: 0 auto;">Everything you need to know about our workflow and policies.</p>
+                </div>
+
+                <!-- Tabs -->
+                <div class="faq-tabs">
+                    <button class="faq-tab active" onclick="filterFaq('services', this)">Services</button>
+                    <button class="faq-tab" onclick="filterFaq('process', this)">Process & Workflow</button>
+                    <button class="faq-tab" onclick="filterFaq('pricing', this)">Pricing & Payments</button>
+                    <button class="faq-tab" onclick="filterFaq('trust', this)">Trust & Security</button>
+                </div>
+
+                <div class="faq-grid" id="faq-grid">
+                    <!-- COLUMN 1: SERVICES -->
+                    <div class="faq-category active-category" data-category="services">
+                        <div class="faq-item">
+                            <div class="faq-question">What types of videos do you edit?</div>
+                            <div class="faq-answer">
+                                We specialize in:
+                                <ul style="list-style-type: disc; padding-left: 20px; margin-top: 5px;">
+                                    <li>All YouTube content</li>
+                                    <li>Instagram Reels</li>
+                                    <li>Tiktok videos</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <div class="faq-question">Do you provide music and stock footage?</div>
+                            <div class="faq-answer">
+                                Yes. We use high-quality royalty-free music and stock footage to enhance your video without copyright issues.
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <div class="faq-question">Does this include color grading and sound?</div>
+                            <div class="faq-answer">
+                                Yes. Every package includes professional color correction and audio mixing to ensure your video looks and sounds crisp.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- COLUMN 2: PROCESS & WORKFLOW -->
+                    <div class="faq-category" data-category="process">
+                        <div class="faq-item">
+                            <div class="faq-question">How do I send you my footage?</div>
+                            <div class="faq-answer">
+                                We use Google Drive. You’ll receive a secure private link to upload all your raw files easily.
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <div class="faq-question">How long does the editing take?</div>
+                            <div class="faq-answer">
+                                Standard delivery: 24–48 hours for short-form. Long-form takes 2-6 days depending on length.
+                                Rush delivery (24h) is available for an additional fee.
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <div class="faq-question">Can I make changes to the video?</div>
+                            <div class="faq-answer">
+                                Yes. Revisions may extend the final delivery time by 24-48 hours, depending on the scope and complexity of the requested changes.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- COLUMN 3: PRICING & PAYMENTS -->
+                    <div class="faq-category" data-category="pricing">
+                        <div class="faq-item">
+                            <div class="faq-question">How does your pricing work?</div>
+                            <div class="faq-answer">
+                                <ul style="list-style-type: disc; padding-left: 20px; margin-top: 5px;">
+                                    <li>Per-Project Rates (pay as you go)</li>
+                                    <li>Monthly Retainers (discounted for consistent creators)</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <div class="faq-question">Do you require a deposit?</div>
+                            <div class="faq-answer">
+                                Yes. We require a 50% deposit to secure your slot in our schedule. The remaining 50%  after you approve the final video.
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <div class="faq-question">Are there any hidden fees?</div>
+                            <div class="faq-answer">
+                                Never. The quoted price is final unless you request work outside the original scope.
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <div class="faq-question">Do I get the editable project files?</div>
+                            <div class="faq-answer">
+                                We deliver the final MP4/MOV.
+                                Editable project files (Premiere/DaVinci) can be provided.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- COLUMN 4: TRUST & SECURITY -->
+                    <div class="faq-category" data-category="trust">
+                        <div class="faq-item">
+                            <div class="faq-question">Is my footage private?</div>
+                            <div class="faq-answer">
+                               Absolutely. Your files stay 100% confidential and never shared with anyone.
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <div class="faq-question">What if I don't like the result?</div>
+                            <div class="faq-answer">
+                                We use your included revision rounds to adjust the edit until it matches your vision
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <div class="faq-question">Do you use AI or real editors?</div>
+                            <div class="faq-answer">
+                                Your videos are crafted by professional human editors.
+                                AI is used only for minor speed-up tasks — never for creativity or storytelling.
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <div class="faq-question">What happens if I lose my video later?</div>
+                            <div class="faq-answer">
+                                We keep a secure backup of your final video for 1 month after delivery. If you lose your copy, just email us and we will resend it for free.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- LEADERSHIP / TEAM -->
+        <section id="page-team" class="page-content" style="background-color: #050505; border-top: 1px solid #111; border-bottom: 1px solid #111;">
+            <div class="container section-padding">
+                <div class="section-header text-center">
+                    <h2>Leadership</h2>
+                    <div class="divider" style="margin: 20px auto;"></div>
+                    <p style="color: var(--text-gray); max-width: 600px; margin: 0 auto;">The minds behind the machine.</p>
+                </div>
+
+                <div class="team-grid">
+                    <!-- Member 1: Adesh -->
+                    <div class="team-card">
+                        <div class="team-img-wrapper">
+                            <img src="adesh.jpg" alt="Adesh - Founder">
+                        </div>
+                        <div class="team-info">
+                            <h3>Adesh</h3>
+                            <span class="team-role">Founder</span>
+                            <p>A visionary strategist with a passion for high-impact visual storytelling. Adesh leads the creative direction of Novexy, ensuring that every frame aligns with the client's broader business objectives and brand identity.</p>
+                        </div>
+                    </div>
+
+                    <!-- Member 2: Parmeshwar -->
+                    <div class="team-card">
+                        <div class="team-img-wrapper">
+                            <img src="Diwali_photo.png" alt="Parmeshwar - Co-Founder" class="My_Photo">
+                        </div>
+                        <div class="team-info">
+                            <h3>Parmeshwar</h3>
+                            <span class="team-role">Co-Founder</span>
+                            <p>The operational backbone of the studio. Parmeshwar specializes in systems architecture and production workflows, ensuring that complex projects are delivered on time, on budget, and to the highest technical standards.</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -941,18 +1690,137 @@
     <!-- FOOTER -->
     <footer>
         <div class="container footer-content">
-            <div class="logo" style="font-size: 1.2rem;">
-                NOVEXY <span class="text-brand">Studios</span>
+            <center>
+            
+            <!-- SOCIAL LINKS ADDED HERE -->
+            <p style="color:#555; font-size:0.9rem; margin-bottom:10px;">CONNECT WITH US</p>
+            <div class="social-links">
+                <!-- Instagram -->
+                <div onclick="window.open('https://instagram.com', '_blank', 'noopener noreferrer')" class="social-icon">
+                    <i class="fab fa-instagram"></i>
+                </div>
+                <!-- Facebook -->
+                <div onclick="window.open('https://facebook.com', '_blank', 'noopener noreferrer')" class="social-icon">
+                    <i class="fab fa-facebook-f"></i>
+                </div>
+                <!-- Twitter/X -->
+                <div onclick="window.open('https://twitter.com', '_blank', 'noopener noreferrer')" class="social-icon">
+                    <i class="fab fa-twitter"></i>
+                </div>
+                <!-- WhatsApp (Replace 1234567890 with actual number) -->
+                <div onclick="window.open('https://wa.me/1234567890', '_blank', 'noopener noreferrer')" class="social-icon">
+                    <i class="fab fa-whatsapp"></i>
+                </div>
             </div>
-            <div class="footer-links">
-                <a href="#page-home">Home</a>
-                <a href="#page-services">Services</a>
-                <a href="#page-pricing">Pricing</a>
-                <a href="#page-contact">Contact</a>
-            </div>
+
             <span style="font-size: 0.8rem; color: #444;">© 2025 Novexy Studios.</span>
+            </center>
         </div>
     </footer>
+
+    <!-- NEW: PRICING MODAL -->
+    <div id="pricing-modal" class="modal">
+        <div class="modal-content">
+            <!-- CLOSE BUTTON ADDED HERE -->
+            <button class="close-modal-btn" onclick="closePricingModal()">&times;</button>
+            
+            <!-- Left Side -->
+            <div class="modal-left">
+                <div class="modal-header">
+                    <h2 id="modal-package-name">Package Name: Starter</h2>
+                    <p id="modal-package-desc">Best for: New Creators we just start their journey.</p>
+                </div>
+
+                <div>
+                    <span class="modal-section-title">Price</span>
+                    <div class="modal-price" id="modal-price-display">₹30,000</div>
+                </div>
+
+                <div>
+                    <span class="modal-section-title">Includes</span>
+                    <!-- Hovering these triggers the right panel -->
+                    <div class="interactive-row" onmouseenter="showInfo('long')" onmouseleave="hideInfo()">
+                        <div class="icon-box">▶</div>
+                        <div class="row-text"><span id="modal-long-count">2</span> Long form videos</div>
+                    </div>
+                    <div class="interactive-row" onmouseenter="showInfo('short')" onmouseleave="hideInfo()">
+                        <div class="icon-box">O</div>
+                        <div class="row-text"><span id="modal-short-count">5</span> Short form videos</div>
+                    </div>
+                </div>
+
+                <div>
+                    <span class="modal-section-title"><span id="modal-total-count">7</span> Total videos</span>
+                    <div class="video-bar-container">
+                        <div class="video-bar">
+                            <div class="bar-long" id="bar-long-visual" style="width: 30%"></div>
+                            <div class="bar-short" id="bar-short-visual" style="width: 70%"></div>
+                        </div>
+                        <div class="bar-labels">
+                            <span>Long form</span>
+                            <span>Short form</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <span class="modal-section-title">Revision</span>
+                    <div class="interactive-row" onmouseenter="showInfo('revision')" onmouseleave="hideInfo()">
+                        <div class="icon-box">↺</div>
+                        <div class="row-text"><span id="modal-revision-count">2</span> Revisions per video</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Side (UPDATED LAYOUT) -->
+            <div class="modal-right">
+                
+                <!-- Dynamic Info Panel (Hidden by default, appears at TOP on hover) -->
+                <div id="info-panel" class="info-panel">
+                    <div id="info-content"></div>
+                </div>
+
+                <!-- Custom Configuration Section (Hidden by default) -->
+                <div id="custom-config-section" class="custom-config-section hidden">
+                    <h4 style="color: var(--brand-primary); margin-bottom: 15px;">Custom Configuration</h4>
+                    
+                    <div class="custom-input-group">
+                        <label for="custom-short-input">Short Form Videos</label>
+                        <input type="number" id="custom-short-input" class="custom-input" min="6" value="6" oninput="calculateCustomPrice()">
+                    </div>
+
+                    <div class="custom-input-group">
+                        <label for="custom-long-input">Long Form Videos</label>
+                        <input type="number" id="custom-long-input" class="custom-input" min="2" value="2" oninput="calculateCustomPrice()">
+                    </div>
+                    
+                    <p id="custom-error" style="color: #ff3b30; font-size: 0.8rem; display: none;">Please select at least one video.</p>
+                </div>
+
+                <!-- Tier Selection (Visible by default at TOP, moves to BOTTOM on hover) -->
+                <div id="tier-section" class="tier-section">
+                    <label class="modal-section-title">Choose Tier</label>
+                    <select id="tier-select" class="tier-select" onchange="updateTierPrice()">
+                        <option value="1">Tier 1: Standard (Included)</option>
+                        <option value="2">Tier 2: Engagement (+15%)</option>
+                        <option value="3">Tier 3: High-Motion (+30%)</option>
+                    </select>
+                    
+                    <!-- Dynamic Description based on selection -->
+                    <div id="tier-description" class="tier-description">
+                        <!-- Content will be populated by JS -->
+                    </div>
+
+                    <div class="modal-actions">
+                        <!-- Updated OK Button -->
+                        <button class="btn-modal-action btn-ok" onclick="closePricingModal()">OK</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
 
     <!-- CALENDLY WIDGET SCRIPT -->
     <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
@@ -991,8 +1859,473 @@
                 });
             });
         });
+
+        // FAQ Filtering Logic
+        function filterFaq(category, btnElement) {
+            const buttons = document.querySelectorAll('.faq-tab');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            btnElement.classList.add('active');
+
+            const categories = document.querySelectorAll('.faq-category');
+            
+            categories.forEach(cat => {
+                if (cat.getAttribute('data-category') === category) {
+                    cat.classList.remove('hidden');
+                    cat.classList.add('active-category');
+                } else {
+                    cat.classList.add('hidden');
+                    cat.classList.remove('active-category');
+                }
+            });
+        }
+        
+        // --- IMPROVED FORM SUBMISSION SCRIPT ---
+        const form = document.getElementById('contact-form');
+        const button = document.getElementById('submit-btn');
+        const successMsg = document.getElementById('form-success');
+        const errorMsg = document.getElementById('form-error');
+
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            // --- VALIDATION LOGIC ---
+            const packageSelect = document.getElementById('package-select');
+            
+            // Check if Enterprise is selected
+            if (packageSelect.value === 'Enterprise') {
+                const shortVal = parseInt(document.getElementById('contact-short').value) || 0;
+                const longVal = parseInt(document.getElementById('contact-long').value) || 0;
+
+                // Validate minimums: 6 short, 2 long
+                if (shortVal < 6 || longVal < 2) {
+                    alert("For Enterprise packages, a minimum of 6 Short Form and 2 Long Form videos is required.");
+                    return;
+                }
+            }
+            // --- END VALIDATION LOGIC ---
+
+            // Sync hidden inputs one last time before send
+            updateHiddenVideoCounts();
+
+            // UI Feedback state
+            const originalText = button.innerText;
+            button.innerText = "Sending...";
+            button.disabled = true;
+            successMsg.style.display = 'none';
+            errorMsg.style.display = 'none';
+
+            const formData = new FormData(form);
+
+            // Add subject dynamically based on name
+            const clientName = document.getElementById('name').value || "Client";
+            formData.append('_subject', `New Lead: ${clientName} - Novexy Studios`);
+
+            try {
+                // We use AbortController to set a timeout on the fetch request
+                // If formsubmit.co takes longer than 10 seconds, we show an error instead of hanging
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 seconds timeout
+
+                const response = await fetch(form.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'Accept': 'application/json' 
+                    },
+                    signal: controller.signal
+                });
+
+                clearTimeout(timeoutId);
+
+                if (response.ok) {
+                    // Success
+                    successMsg.style.display = 'block';
+                    form.reset(); 
+                    document.getElementById('contact-custom-fields').classList.add('hidden');
+                    
+                    // Reset hidden counts to Starter default
+                    updateHiddenVideoCounts();
+
+                    button.innerText = "Sent Successfully";
+                    setTimeout(() => {
+                        button.innerText = originalText;
+                        button.disabled = false;
+                    }, 5000);
+                } else {
+                    // Server returned an error (e.g. 500 or 400)
+                    throw new Error('Server responded with error');
+                }
+
+            } catch (error) {
+                console.error('Submission Error:', error);
+                
+                // Show Error Message
+                errorMsg.style.display = 'block';
+                button.innerText = "Error. Try Again";
+                
+                setTimeout(() => {
+                    button.innerText = originalText;
+                    button.disabled = false;
+                }, 3000);
+            }
+        });
+
+        // --- NEW: Function to sync video counts to hidden fields ---
+        function updateHiddenVideoCounts() {
+            const select = document.getElementById('package-select');
+            const shortHidden = document.getElementById('final-short-count');
+            const longHidden = document.getElementById('final-long-count');
+            
+            const customShort = document.getElementById('contact-short');
+            const customLong = document.getElementById('contact-long');
+
+            if (select.value === 'Starter') {
+                shortHidden.value = "5";
+                longHidden.value = "2";
+            } else if (select.value === 'Growth') {
+                shortHidden.value = "12";
+                longHidden.value = "4";
+            } else if (select.value === 'Pro Scale') {
+                shortHidden.value = "20";
+                longHidden.value = "5";
+            } else if (select.value === 'Enterprise') {
+                shortHidden.value = customShort.value || "Not specified";
+                longHidden.value = customLong.value || "Not specified";
+            }
+        }
+
+        // Contact Custom Fields Toggle (Modified)
+        function toggleContactCustomFields() {
+            const select = document.getElementById('package-select');
+            const fields = document.getElementById('contact-custom-fields');
+            if (select.value === 'Enterprise') {
+                fields.classList.remove('hidden');
+            } else {
+                fields.classList.add('hidden');
+            }
+            updateHiddenVideoCounts();
+        }
+
+        // Add listeners for custom inputs to update hidden fields in real-time
+        document.addEventListener('DOMContentLoaded', () => {
+             const shortInput = document.getElementById('contact-short');
+             const longInput = document.getElementById('contact-long');
+             if (shortInput) shortInput.addEventListener('input', updateHiddenVideoCounts);
+             if (longInput) longInput.addEventListener('input', updateHiddenVideoCounts);
+             
+             // Initialize hidden fields with default values (Starter)
+             updateHiddenVideoCounts();
+        });
+
+
+        // --- NEW: PRICING POPUP LOGIC ---
+
+        // Data Object for Packages based on PDF
+        const packageData = {
+            'starter': {
+                name: 'Starter (Small Popcorn)',
+                desc: 'Includes 5 Short Form & 2 Long Form Videos (1-10 min).',
+                basePrice: 30000,
+                longCount: 2,
+                shortCount: 5,
+                totalCount: 7,
+                revisions: 2,
+                longRatio: '30%',
+                shortRatio: '70%'
+            },
+            'growth': {
+                name: 'Growth (Medium Popcorn)',
+                desc: 'Includes 12 Short Form & 4 Long Form Videos.',
+                basePrice: 60000,
+                longCount: 4,
+                shortCount: 12,
+                totalCount: 16,
+                revisions: 'Unlimited',
+                longRatio: '25%',
+                shortRatio: '75%'
+            },
+            'pro': {
+                name: 'Pro Scale (Large Popcorn)',
+                desc: 'Best Seller! 20 Short Form & 5 Long Form Videos.',
+                basePrice: 100000,
+                longCount: 5,
+                shortCount: 20,
+                totalCount: 25,
+                revisions: 'Unlimited',
+                longRatio: '20%',
+                shortRatio: '80%'
+            },
+            'enterprise': {
+                name: 'Enterprise (Custom)',
+                desc: 'Configure your own package. Select the number of videos below.',
+                basePrice: 0, // Calculated dynamically
+                longCount: 0,
+                shortCount: 0,
+                totalCount: 0,
+                revisions: 'Unlimited',
+                longRatio: '50%',
+                shortRatio: '50%'
+            }
+        };
+
+        let currentPackageKey = 'starter';
+        let currentTier = 1;
+        let lockedInfoType = null; // Track if user has clicked to lock info
+        
+        // Prices for custom package
+        const PRICE_SHORT = 3000;
+        const PRICE_LONG = 6000;
+
+        // Open Modal Function
+        function openPricingModal(pkgKey) {
+            currentPackageKey = pkgKey;
+            lockedInfoType = null; // Reset lock on open
+            const data = packageData[pkgKey];
+            
+            // Populate Modal Left Side
+            document.getElementById('modal-package-name').innerText = 'Package: ' + data.name;
+            document.getElementById('modal-package-desc').innerText = data.desc;
+            document.getElementById('modal-long-count').innerText = data.longCount;
+            document.getElementById('modal-short-count').innerText = data.shortCount;
+            document.getElementById('modal-total-count').innerText = data.totalCount;
+            document.getElementById('modal-revision-count').innerText = data.revisions;
+            
+            // Toggle Custom Inputs
+            const customConfig = document.getElementById('custom-config-section');
+            if (pkgKey === 'enterprise') {
+                customConfig.classList.remove('hidden');
+                // Set default values for custom (e.g., 6 for short, 2 for long)
+                document.getElementById('custom-short-input').value = 6;
+                document.getElementById('custom-long-input').value = 2; // Default to 2
+                calculateCustomPrice(); // Initial calc
+            } else {
+                customConfig.classList.add('hidden');
+                // Update Visual Bars for standard packages
+                document.getElementById('bar-long-visual').style.width = data.longRatio;
+                document.getElementById('bar-short-visual').style.width = data.shortRatio;
+            }
+
+            // Reset Tier Selection
+            document.getElementById('tier-select').value = "1";
+            currentTier = 1;
+            
+            // If standard package, update tier immediately. If custom, calc handles it.
+            if (pkgKey !== 'enterprise') {
+                updateTierPrice();
+            }
+
+            // Show Modal
+            document.getElementById('pricing-modal').classList.add('active');
+        }
+
+        // Calculate Custom Price based on Inputs
+        function calculateCustomPrice() {
+            if (currentPackageKey !== 'enterprise') return;
+
+            const shortQty = parseInt(document.getElementById('custom-short-input').value) || 0;
+            const longQty = parseInt(document.getElementById('custom-long-input').value) || 0;
+            
+            // Update Counts in Left Panel
+            document.getElementById('modal-short-count').innerText = shortQty;
+            document.getElementById('modal-long-count').innerText = longQty;
+            const totalQty = shortQty + longQty;
+            document.getElementById('modal-total-count').innerText = totalQty;
+
+            // Visual Bars Logic
+            if (totalQty > 0) {
+                const longPct = (longQty / totalQty) * 100;
+                const shortPct = (shortQty / totalQty) * 100;
+                document.getElementById('bar-long-visual').style.width = longPct + '%';
+                document.getElementById('bar-short-visual').style.width = shortPct + '%';
+                document.getElementById('custom-error').style.display = 'none';
+            } else {
+                document.getElementById('bar-long-visual').style.width = '50%';
+                document.getElementById('bar-short-visual').style.width = '50%';
+            }
+
+            // Calculate Base Price
+            let basePrice = (shortQty * PRICE_SHORT) + (longQty * PRICE_LONG);
+            
+            // Apply Tier Multiplier
+            let multiplier = 1;
+            currentTier = parseInt(document.getElementById('tier-select').value);
+            if (currentTier === 2) multiplier = 1.15;
+            if (currentTier === 3) multiplier = 1.30;
+
+            let finalPrice = basePrice * multiplier;
+
+            // Update Display
+            document.getElementById('modal-price-display').innerText = '₹' + Math.floor(finalPrice).toLocaleString('en-IN');
+            
+            // Update Tier Description Text
+            updateTierDescriptionText();
+        }
+
+        // Close Modal Function
+        function closePricingModal() {
+            document.getElementById('pricing-modal').classList.remove('active');
+            // Ensure reset when closing
+            lockedInfoType = null;
+            hideInfo();
+        }
+
+        // Close on clicking outside
+        document.getElementById('pricing-modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closePricingModal();
+            }
+        });
+
+        // Update Price based on Tier (Handles both Standard and Custom)
+        function updateTierPrice() {
+            currentTier = parseInt(document.getElementById('tier-select').value);
+            
+            if (currentPackageKey === 'enterprise') {
+                calculateCustomPrice(); // Recalculate based on inputs + new tier
+                return;
+            }
+
+            const base = packageData[currentPackageKey].basePrice;
+            let finalPrice = base;
+
+            if (currentTier === 1) {
+                finalPrice = base;
+            } else if (currentTier === 2) {
+                finalPrice = base + (base * 0.15); // +15%
+            } else if (currentTier === 3) {
+                finalPrice = base + (base * 0.30); // +30%
+            }
+
+            // Format Price with Comma and Rupee Symbol
+            document.getElementById('modal-price-display').innerText = '₹' + finalPrice.toLocaleString('en-IN');
+            
+            updateTierDescriptionText();
+        }
+
+        // Separate function just for text description to avoid duplication
+        function updateTierDescriptionText() {
+             let description = "";
+             if (currentTier === 1) {
+                description = `
+                    <strong style="color: white; display:block; margin-bottom:5px;">Tier 1: Standard (Included in Price)</strong>
+                    <ul style="list-style-type: disc; padding-left: 20px; color: #ccc;">
+                        <li><strong style="color: var(--brand-primary)">Visual Polish:</strong> Professional Color Grading & Standard Cuts/Transitions.</li>
+                        <li><strong style="color: var(--brand-primary)">Audio Engineering:</strong> Sound Design, noise reduction & mixing.</li>
+                        <li><strong style="color: var(--brand-primary)">Key Elements:</strong> Simple Motion Graphics, Overlays, and Masking.</li>
+                        <li><strong style="color: var(--brand-primary)">Accessibility:</strong> Clean, readable Standard Subtitles.</li>
+                    </ul>
+                `;
+             } else if (currentTier === 2) {
+                description = `
+                    <strong style="color: white; display:block; margin-bottom:5px;">Tier 2: Engagement (+15% Upgrade)</strong>
+                    <ul style="list-style-type: disc; padding-left: 20px; color: #ccc;">
+                        <li style="font-style:italic; color:var(--brand-primary); margin-bottom:4px;">Includes Tier 1</li>
+                        <li><strong style="color: var(--brand-primary)">Dynamic Captions:</strong> Viral animated subtitles with keyword highlighting.</li>
+                        <li><strong style="color: var(--brand-primary)">Visual Variety:</strong> Premium Illustrations overlays and Stock Footage.</li>
+                        <li><strong style="color: var(--brand-primary)">Pacing Control:</strong> Strategic Zoom-ins/outs (J-cuts/L-cuts) to keep the energy high.</li>
+                        <li><strong style="color: var(--brand-primary)">Engagement Hooks:</strong> Visual elements that encourage viewers to like, share, or comment on the video.</li>
+                    </ul>
+                `;
+             } else if (currentTier === 3) {
+                description = `
+                    <strong style="color: white; display:block; margin-bottom:5px;">Tier 3: High-Motion (+30% Upgrade)</strong>
+                    <ul style="list-style-type: disc; padding-left: 20px; color: #ccc;">
+                        <li style="font-style:italic; color:var(--brand-primary); margin-bottom:4px;">Includes Tier 2</li>
+                        <li><strong style="color: var(--brand-primary)">Custom Animation:</strong> Bespoke Motion Graphics & Kinetic Typography (3D Text).</li>
+                        <li><strong style="color: var(--brand-primary)">Storytelling Elements:</strong> Paper-tear effects, map animations, and custom soundscapes.</li>
+                        <li><strong style="color: var(--brand-primary)">Seamless Flow:</strong> Complex transitions that blend scenes invisibly.</li>
+                        <li><strong style="color: var(--brand-primary)">2.5D Parallax Effect:</strong> We turn your static photos into moving 3D scenes.</li>
+                        <li><strong style="color: var(--brand-primary)">Object Tracking:</strong> Text or graphics that "stick" to moving objects in the video.</li>
+                    </ul>
+                `;
+             }
+             document.getElementById('tier-description').innerHTML = description;
+        }
+
+        // Toggle Info (Click to Lock)
+        function toggleInfo(type) {
+            if (lockedInfoType === type) {
+                // Clicked same item: Unlock
+                lockedInfoType = null;
+                // Don't hide immediately, let mouseleave handle it naturally
+            } else {
+                // Clicked new item: Lock and Show
+                lockedInfoType = type;
+                showInfo(type);
+            }
+        }
+
+        // Hover Info Logic (Populated from Turnaround PDF)
+        function showInfo(type, isHover = false) {
+            // Disable hover for Enterprise package
+            if (currentPackageKey === 'enterprise' && isHover) {
+                return;
+            }
+
+            const panel = document.getElementById('info-panel');
+            const content = document.getElementById('info-content');
+            
+            let html = '';
+
+            if (type === 'long') {
+                html = `
+                    <h4 style="color:var(--brand-primary); margin-bottom:10px;">Long Form Turnaround</h4>
+                    <table class="info-table">
+                        <tr><th>Duration</th><th>Turnaround</th><th>Rush Fee</th></tr>
+                        <tr><td>3-10 min</td><td>2-3 days</td><td>+30-40%</td></tr>
+                        <tr><td>10-15 min</td><td>3-4 days</td><td>+30-40%</td></tr>
+                        <tr><td>15-20 min</td><td>4-5 days</td><td>+30-40%</td></tr>
+                    </table>
+                `;
+            } else if (type === 'short') {
+                html = `
+                    <h4 style="color:var(--brand-primary); margin-bottom:10px;">Short Form Turnaround</h4>
+                    <table class="info-table">
+                        <tr><th>Duration</th><th>Standard</th><th>Rush (24h)</th></tr>
+                        <tr><td>15-60 sec</td><td>24-48 hr</td><td>+20% fee</td></tr>
+                    </table>
+                    <p style="font-size:0.85rem; color:#aaa; margin-top:10px;">*Time starts after full footage & brief received.</p>
+                `;
+            } else if (type === 'revision') {
+                html = `
+                    <h4 style="color:var(--brand-primary); margin-bottom:10px;">Revision Policy</h4>
+                    <p style="font-size:0.9rem; color:#ccc; line-height:1.5;">
+                        Revisions may extend final delivery time by 24-48 hours depending on scope.
+                        <br><br>
+                        <strong>Queue Policy:</strong> Multiple videos submitted simultaneously will be queued and prioritized by submission time.
+                    </p>
+                `;
+            }
+
+            content.innerHTML = html;
+            
+            // SHOW INFO with class (triggers CSS transition)
+            panel.classList.add('visible');
+        }
+
+        function hideInfo() {
+            const panel = document.getElementById('info-panel');
+            
+            // If user has locked a specific info, show that instead of hiding
+            if (lockedInfoType) {
+                showInfo(lockedInfoType);
+            } else {
+                // HIDE INFO (triggers CSS transition back to 0 height)
+                panel.classList.remove('visible');
+            }
+        }
+
+        // Contact Custom Fields Toggle
+        function toggleContactCustomFields() {
+            const select = document.getElementById('package-select');
+            const fields = document.getElementById('contact-custom-fields');
+            if (select.value === 'Enterprise') {
+                fields.classList.remove('hidden');
+            } else {
+                fields.classList.add('hidden');
+            }
+        }
+
     </script>
 </body>
-
 </html>
-
