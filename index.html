@@ -1761,12 +1761,15 @@
 
                 <div>
                     <span class="modal-section-title">Includes</span>
-                    <!-- Hovering these triggers the right panel -->
-                    <div class="interactive-row" onmouseenter="showInfo('long')" onmouseleave="hideInfo()">
+                    <!-- 
+                        UPDATED: Added 'onclick' handler for custom package.
+                        'onmouseenter' and 'onmouseleave' now pass a 'true' flag to indicate they are hover events.
+                    -->
+                    <div class="interactive-row" onclick="handleInfoClick('long')" onmouseenter="showInfo('long', true)" onmouseleave="hideInfo(true)">
                         <div class="icon-box">▶</div>
                         <div class="row-text"><span id="modal-long-count">2</span> Long form videos</div>
                     </div>
-                    <div class="interactive-row" onmouseenter="showInfo('short')" onmouseleave="hideInfo()">
+                    <div class="interactive-row" onclick="handleInfoClick('short')" onmouseenter="showInfo('short', true)" onmouseleave="hideInfo(true)">
                         <div class="icon-box">O</div>
                         <div class="row-text"><span id="modal-short-count">5</span> Short form videos</div>
                     </div>
@@ -1788,7 +1791,7 @@
 
                 <div>
                     <span class="modal-section-title">Revision</span>
-                    <div class="interactive-row" onmouseenter="showInfo('revision')" onmouseleave="hideInfo()">
+                    <div class="interactive-row" onclick="handleInfoClick('revision')" onmouseenter="showInfo('revision', true)" onmouseleave="hideInfo(true)">
                         <div class="icon-box">↺</div>
                         <div class="row-text"><span id="modal-revision-count">2</span> Revisions per video</div>
                     </div>
@@ -2314,7 +2317,24 @@
              document.getElementById('tier-description').innerHTML = description;
         }
 
-        // Toggle Info (Click to Lock)
+        // UPDATED: Toggle Info logic with Click Support for Enterprise
+        function handleInfoClick(type) {
+            // Only proceed if current package is Enterprise
+            if (currentPackageKey !== 'enterprise') return;
+
+            // If the same type is clicked, close it (toggle behavior)
+            if (lockedInfoType === type) {
+                lockedInfoType = null;
+                const panel = document.getElementById('info-panel');
+                panel.classList.remove('visible');
+            } else {
+                // Otherwise open the new type
+                lockedInfoType = type;
+                showInfo(type, false); // isHover = false, because this is a click
+            }
+        }
+
+        // Toggle Info (Original Click to Lock - mostly for standard packages now if needed)
         function toggleInfo(type) {
             if (lockedInfoType === type) {
                 // Clicked same item: Unlock
@@ -2329,7 +2349,7 @@
 
         // Hover Info Logic (Populated from Turnaround PDF)
         function showInfo(type, isHover = false) {
-            // Disable hover for Enterprise package
+            // UPDATED: Disable hover effect for Enterprise package
             if (currentPackageKey === 'enterprise' && isHover) {
                 return;
             }
@@ -2375,13 +2395,20 @@
             panel.classList.add('visible');
         }
 
-        function hideInfo() {
+        function hideInfo(isHover = false) {
+            // UPDATED: Prevent hiding on mouseleave if it's Enterprise (handled by click now)
+            if (currentPackageKey === 'enterprise' && isHover) {
+                return;
+            }
+
             const panel = document.getElementById('info-panel');
             
-            // If user has locked a specific info, show that instead of hiding
-            if (lockedInfoType) {
+            // If user has locked a specific info (via click), show that instead of hiding
+            // But for Enterprise, the toggle logic handles this, so this check is mainly for standard packages
+            if (lockedInfoType && currentPackageKey !== 'enterprise') {
                 showInfo(lockedInfoType);
-            } else {
+            } else if (currentPackageKey !== 'enterprise') { 
+                // Only auto-hide on hover-out for non-enterprise packages
                 // HIDE INFO (triggers CSS transition back to 0 height)
                 panel.classList.remove('visible');
             }
