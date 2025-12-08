@@ -1455,13 +1455,17 @@
                     </div>
 
                     <div class="form-box">
-                        <form action="https://formsubmit.co/novexystudios@gmail.com" method="POST" id="contact-form">
-                            <!-- Hidden Fields for Better Email Formatting -->
-                            <!-- UNCOMMENTED: _captcha false to DISABLE captcha page for seamless AJAX submission -->
-                            <input type="hidden" name="_captcha" value="false">
-                            <input type="hidden" name="_template" value="table">
-                            <input type="hidden" name="_subject" value="New Client Inquiry - Novexy Studios">
+                        <!-- Updated Form Action to Web3Forms -->
+                        <form action="https://api.web3forms.com/submit" method="POST" id="contact-form">
+                            <!-- WEB3FORMS ACCESS KEY - REPLACE WITH YOUR KEY -->
+                            <input type="hidden" name="access_key" value="028248ff-c108-4205-b6fe-dea2138683b3">
                             
+                            <!-- Optional Web3Forms Settings -->
+                            <input type="hidden" name="subject" value="New Client Inquiry - Novexy Studios">
+                            <input type="hidden" name="from_name" value="Novexy Website">
+                            <!-- Botcheck (Hidden field to prevent spam) -->
+                            <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+
                             <!-- 
                                 UPDATED: Renamed hidden fields to be user-friendly ("No of...")
                                 These fields are ALWAYS sent, regardless of package selected.
@@ -1945,7 +1949,8 @@
 
             // Add subject dynamically based on name
             const clientName = document.getElementById('name').value || "Client";
-            formData.append('_subject', `New Lead: ${clientName} - Novexy Studios`);
+            // Web3Forms uses 'subject' field, handled by hidden input, but appending for custom title
+            // formData.append('subject', `New Lead: ${clientName} - Novexy Studios`); 
 
             try {
                 // We use AbortController to set a timeout on the fetch request
@@ -1963,8 +1968,11 @@
                 });
 
                 clearTimeout(timeoutId);
+                
+                // Parse JSON response from Web3Forms
+                const json = await response.json();
 
-                if (response.ok) {
+                if (response.status == 200) {
                     // Success
                     successMsg.style.display = 'block';
                     form.reset(); 
@@ -1980,7 +1988,8 @@
                     }, 5000);
                 } else {
                     // Server returned an error (e.g. 500 or 400)
-                    throw new Error('Server responded with error');
+                    console.log(response);
+                    throw new Error(json.message || 'Server responded with error');
                 }
 
             } catch (error) {
@@ -1988,6 +1997,9 @@
                 
                 // Show Error Message
                 errorMsg.style.display = 'block';
+                // Display specific error message if available
+                errorMsg.innerText = error.message || "Something went wrong. Please try again later.";
+                
                 button.innerText = "Error. Try Again";
                 
                 setTimeout(() => {
