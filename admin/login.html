@@ -172,7 +172,7 @@
         // Check if already logged in
         supabaseClient.auth.getSession().then(({ data: { session } }) => {
             if (session) {
-                window.location.href = 'admin-dashboard.html';
+                window.location.href = 'dashboard.html';
             }
         });
 
